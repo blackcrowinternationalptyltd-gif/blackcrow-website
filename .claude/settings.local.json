@@ -93,7 +93,8 @@
       "Bash(sed -i '' 's|PUBLIC_STOREFRONT_API_TOKEN=\"\"|PUBLIC_STOREFRONT_API_TOKEN=\"8af6c7f9a427a336f3b50ae0bf1aa5a3\"|' /Users/babajiparts/blackcrow-website-2026-june/.env)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git pull *)"
     ]
   }
 }
