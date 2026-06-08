@@ -98,7 +98,9 @@
       "Bash(sed -i '' 's/run: npm install --legacy-peer-deps/run: npm ci/' /Users/babajiparts/blackcrow-website-2026-june/.github/workflows/*.yml)",
       "Bash(git push *)",
       "Bash(git checkout *)",
-      "Bash(npx shopify *)"
+      "Bash(npx shopify *)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('main:', d.get\\('main'\\)\\); print\\('exports:', list\\(d.get\\('exports',{}\\).keys\\(\\)\\)[:5]\\)\")",
+      "Bash(# Check what supabase does in collection pages *)"
     ]
   }
 }

@@ -19,18 +19,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '~': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'app'),
-      // Polyfill node:assert at build time so Cloudflare Workers never resolves it at runtime
-      'node:assert': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'app/polyfills/assert.js'),
-      'assert': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'app/polyfills/assert.js'),
     },
   },
   build: {
     assetsInlineLimit: 0,
-  },
-  ssr: {
-    noExternal: true,
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom'],
   },
 });
