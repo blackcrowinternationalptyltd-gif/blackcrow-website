@@ -1,17 +1,15 @@
-import {createRequestHandler} from '@shopify/remix-oxygen';
-import {storefrontRedirect} from '@shopify/hydrogen';
+// Virtual entry point for the app — provided by the Remix Vite plugin.
+import * as remixBuild from 'virtual:remix/server-build';
+import {createRequestHandler, getStorefrontHeaders} from '@shopify/remix-oxygen';
+import {createStorefrontClient, storefrontRedirect} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
-import {createStorefrontClient} from '@shopify/hydrogen';
 
 /**
- * Export a fetch handler in module format.
+ * Export a fetch handler in module format. This is the Oxygen worker entry.
  */
 export default {
   async fetch(request, env, executionContext) {
     try {
-      /**
-       * Open a cache instance in the worker and a custom session instance.
-       */
       if (!env?.SESSION_SECRET) {
         throw new Error('SESSION_SECRET environment variable is not set');
       }
@@ -22,9 +20,6 @@ export default {
         AppSession.init(request, [env.SESSION_SECRET]),
       ]);
 
-      /**
-       * Create Hydrogen's Storefront client.
-       */
       const {storefront} = createStorefrontClient({
         cache,
         waitUntil,
@@ -38,7 +33,7 @@ export default {
 
       const handleRequest = createRequestHandler({
         build: remixBuild,
-        mode: 'production',
+        mode: process.env.NODE_ENV,
         getLoadContext() {
           return {
             session,
@@ -51,11 +46,15 @@ export default {
 
       const response = await handleRequest(request);
 
+      if (session.isPending) {
+        response.headers.set('Set-Cookie', await session.commit());
+      }
+
       if (response.status === 404) {
         /**
          * Check for redirects only when there's a 404 from the app.
-         * If the redirect doesn't exist, then `storefrontRedirect` will pass
-         * through the 404 response.
+         * If the redirect doesn't exist, `storefrontRedirect` passes the
+         * 404 response through.
          */
         return storefrontRedirect({request, response, storefront});
       }

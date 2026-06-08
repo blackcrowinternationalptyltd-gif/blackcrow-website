@@ -100,7 +100,13 @@
       "Bash(git checkout *)",
       "Bash(npx shopify *)",
       "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('main:', d.get\\('main'\\)\\); print\\('exports:', list\\(d.get\\('exports',{}\\).keys\\(\\)\\)[:5]\\)\")",
-      "Bash(# Check what supabase does in collection pages *)"
+      "Bash(# Check what supabase does in collection pages *)",
+      "Bash(xargs sed -i '' \"s|from '@shopify/remix-oxygen'|from '@remix-run/node'|g\")",
+      "Bash(xargs sed -i '' 's|from \"@shopify/remix-oxygen\"|from \"@remix-run/node\"|g')",
+      "Bash(gzip -c dist/server/index.js)",
+      "Bash(node -e \"const m=require\\('./dist/server/metafile.server.json'\\); const o=Object.values\\(m.outputs\\).find\\(x=>x.entryPoint\\); console.log\\('entryPoint:', o&&o.entryPoint\\); console.log\\('inputs mentioning server.js or oxygen:', Object.keys\\(m.inputs\\).filter\\(k=>/server\\\\.js|oxygen|virtual/.test\\(k\\)\\).slice\\(0,20\\)\\);\")",
+      "Bash(cd /Users/babajiparts/blackcrow-website-2026-june; echo \"=== context usage in routes/root ===\"; grep -rn \"context\\\\.\\\\|storefront\\\\|env\\\\.\\\\|session\\\\|loader\\\\b\" app/root.jsx app/routes/_index.jsx app/routes/products.\\\\$handle.jsx 2>/dev/null | head -30)",
+      "Bash(node -e \"const m=require\\('./dist/server/metafile.server.json'\\); console.log\\(Object.values\\(m.outputs\\).find\\(x=>x.entryPoint\\)?.entryPoint\\)\")"
     ]
   }
 }
