@@ -21,6 +21,10 @@ export default defineConfig({
       '~': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'app'),
     },
   },
+  define: {
+    // Replace process.env.NODE_ENV at build time — Cloudflare Workers has no process
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
   build: {
     assetsInlineLimit: 0,
   },

@@ -38,7 +38,7 @@ export default {
 
       const handleRequest = createRequestHandler({
         build: remixBuild,
-        mode: process.env.NODE_ENV,
+        mode: 'production',
         getLoadContext() {
           return {
             session,
