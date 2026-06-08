@@ -94,7 +94,10 @@
       "Bash(git init *)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git pull *)"
+      "Bash(git pull *)",
+      "Bash(sed -i '' 's/run: npm install --legacy-peer-deps/run: npm ci/' /Users/babajiparts/blackcrow-website-2026-june/.github/workflows/*.yml)",
+      "Bash(git push *)",
+      "Bash(git checkout *)"
     ]
   }
 }
