@@ -4,7 +4,6 @@ import {vitePlugin as remix} from '@remix-run/dev';
 import {fileURLToPath} from 'url';
 import path from 'path';
 
-
 export default defineConfig({
   plugins: [
     hydrogen(),
@@ -20,15 +19,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '~': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'app'),
-      'node:assert': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'app/polyfills/assert.js'),
-      'assert': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'app/polyfills/assert.js'),
     },
   },
   build: {
     assetsInlineLimit: 0,
-  },
-  ssr: {
-    noExternal: true,
   },
   optimizeDeps: {
     include: ['react', 'react-dom'],
