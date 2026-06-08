@@ -24,6 +24,9 @@ export default defineConfig({
   build: {
     assetsInlineLimit: 0,
   },
+  ssr: {
+    noExternal: ['react', 'react-dom'],
+  },
   optimizeDeps: {
     include: ['react', 'react-dom'],
   },
