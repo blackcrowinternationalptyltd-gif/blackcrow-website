@@ -1,16 +1,37 @@
 import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 import {ProductCard} from '~/components/ProductCard';
+import {getSupabase} from '~/lib/supabase.server';
 
 export const meta = () => [
   {title: 'Interior Collection | BlackCrow Automotive'},
   {name: 'description', content: 'The BlackCrow interior detailing collection.'},
 ];
 
-const PRODUCTS = [];
+export async function loader({context}) {
+  const sb = getSupabase(context.env);
+  if (!sb) return json({products: []});
 
-export async function loader() {
-  return json({products: PRODUCTS});
+  const {data, error} = await sb
+    .from('products')
+    .select('name, slug, price, main_image_url, status, display_order')
+    .eq('category', 'Interior')
+    .in('status', ['active', 'coming_soon'])
+    .order('display_order', {ascending: true});
+
+  if (error || !data?.length) return json({products: []});
+
+  const products = data.map((p) => ({
+    name: p.name,
+    price: `$${Number(p.price).toFixed(2)}`,
+    image: p.main_image_url ?? `/images/product-${p.slug}.jpg`,
+    to: `/products/${p.slug}`,
+    imgBg: p.slug === 'arctic' ? 'bg-bc-arctic' : 'bg-bc-mid',
+    imgRing: p.slug === 'crimson' ? 'ring-2 ring-bc-red ring-offset-2 ring-offset-bc-card' : '',
+    comingSoon: p.status === 'coming_soon',
+  }));
+
+  return json({products});
 }
 
 export default function InteriorCollection() {
