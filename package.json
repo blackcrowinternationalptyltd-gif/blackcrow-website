@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "shopify hydrogen build --codegen",
+    "build": "shopify hydrogen build",
     "preview": "shopify hydrogen preview",
     "lint": "eslint --no-eslintrc -c .eslintrc.cjs --ext .js,.jsx .",
     "typecheck": "echo 'No TypeScript in this project'"
