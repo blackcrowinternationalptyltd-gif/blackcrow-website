@@ -19,15 +19,13 @@ export default defineConfig({
   resolve: {
     alias: {
       '~': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'app'),
-      'react/jsx-runtime': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'node_modules/react/jsx-runtime.js'),
-      'react/jsx-dev-runtime': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'node_modules/react/jsx-dev-runtime.js'),
     },
   },
   build: {
     assetsInlineLimit: 0,
   },
   ssr: {
-    noExternal: true,
+    noExternal: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime', '@supabase/supabase-js', '@supabase/postgrest-js', '@supabase/realtime-js', '@supabase/storage-js', '@supabase/functions-js', '@supabase/auth-js'],
   },
   optimizeDeps: {
     include: ['react', 'react-dom'],
