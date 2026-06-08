@@ -25,6 +25,6 @@ export default defineConfig({
     assetsInlineLimit: 0,
   },
   ssr: {
-    noExternal: ['react', 'react-dom', '@remix-run/react', '@remix-run/server-runtime'],
+    noExternal: true,
   },
 });
